@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Launch either a bookmarked page or a given URL via dmenu as a Chromium app
+
+bookmark=${1:-"$(cat "$HOME"/.config/bookmarks/* | dmenu)"}
+[ "$bookmark" ] && chromium --app="$bookmark"

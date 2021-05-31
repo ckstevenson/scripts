@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+arg=$1
+services=(nextcloud jellyfin)
+
+until [ -d /mnt/storage/nextcloud/data ]; do
+    sleep 10
+done
+
+down () {
+    for i in "${services}"; do
+        /usr/local/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml down
+    done
+}
+
+up () {
+    for i in "${services}"; do
+        /usr/local/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml up -d
+    done
+}
+
+case
+    stop) down ;;
+    start) up ;;
+    restart) down && up ;;
+esac

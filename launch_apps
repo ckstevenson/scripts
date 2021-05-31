@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Ran from a keybinding to launch work specific apps.
+
+while read -r in
+do 
+    chromium --app="$in" & 
+    sleep 1
+done < /home/cameron/.config/bookmarks/launch_apps
+slack &

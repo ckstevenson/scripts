@@ -1,0 +1,5 @@
+#!/bin/env sh
+
+# Simply set a backgrounf and lock screen. Ran every time system starts because of dynamic display layouts.
+feh --bg-scale --no-xinerama "$HOME"/.config/bg/bg.jpg &
+betterlockscreen -u "$HOME"/.config/bg/bg.jpg &

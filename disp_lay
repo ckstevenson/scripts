@@ -1,0 +1,25 @@
+#!/bin/env sh
+
+# Used to set display layout for my personal config. 
+# Previously included more hosts, but since I have moved to one device.
+
+laptop() {
+    if [ "$(xrandr --listmonitors | head -n1 | cut -d' ' -f2)" -eq 3 ]; then
+        xrandr --output eDP1 --off --output DP1 --off --output DP2 --off --output DP2-1 --off --output DP2-2 --mode 1920x1200 --pos 1080x153 --rotate normal --output DP2-3 --mode 1920x1080 --pos 0x0 --rotate left --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off
+    elif [ "$(xrandr --listmonitors | head -n1 | cut -d' ' -f2)" -eq 2 ]; then
+        xrandr --output eDP1 --off --output DP2-2 --primary --mode 2560x1440 
+    else
+        xrandr --output eDP1 --primary --mode 1920x1080
+    fi
+    setbg
+}
+
+setbg() {
+    $HOME/.local/bin/setbg
+}
+
+case $(hostname) in
+#    "workstation") workstation ;;
+    "deflf1-l0084") laptop ;; 
+    *) setbg ;;
+esac

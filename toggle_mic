@@ -1,0 +1,6 @@
+#!/bin/env sh
+
+# Toggle mic via keypress
+
+[ "$(amixer sget Mic\ Mute-LED\ Mode | cut -d: -f2 | tr -d ' ' | tail -1)" = Off ] && amixer -q sset Mic\ Mute-LED\ Mode On && exit
+amixer -q sset Mic\ Mute-LED\ Mode Off

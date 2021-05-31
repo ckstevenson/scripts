@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Add a new host to pihole when I add a new service to my homelab
+#TODO add nginx site config
+
+HOSTS="/mnt/docker/pihole/hosts"
+SERVICE="$1"
+
+printf "10.10.10.11\t%s.germerica.us\t%s" "$SERVICE" "$SERVICE" >> $HOSTS
+/usr/local/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml down && /usr/local/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml up -d

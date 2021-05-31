@@ -1,0 +1,6 @@
+#!/bin/env sh
+
+# Swap between US & DE layout while sourcing my .Xmodmap file
+
+[ "$(setxkbmap -query | grep layout | awk '{print $2}')" = "us" ] && setxkbmap de && xmodmap "$HOME"/.Xmodmap >/dev/null 2>&1 && exit 0
+setxkbmap us && xmodmap "$HOME"/.Xmodmap >/dev/null 2>&1
