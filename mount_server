@@ -7,5 +7,7 @@ mount="sudo mount -t cifs -o username=cameron,password=$pass,uid=1000,gid=1000"
 
 $mount //10.10.10.11/Media "$HOME"/Videos
 $mount //10.10.10.11/Pictures "$HOME"/Pictures
+$mount //10.10.10.11/iso "$HOME"/Documents/Development/iso
+$mount //10.10.10.11/cameron "$HOME"/Backups
 #$mount 10.10.10.119:/mnt/other $HOME/Other
 #$mount 10.10.10.11:/mnt/media/Games $HOME/Games
