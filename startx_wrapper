@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 # Wrapper for startx to run iGPU or dGPU depending on docking station connectivity.
 # There is probably a better way to do this.

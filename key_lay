@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 # Swap between US & DE layout while sourcing my .Xmodmap file
 

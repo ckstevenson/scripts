@@ -7,4 +7,4 @@ HOSTS="/mnt/docker/pihole/hosts"
 SERVICE="$1"
 
 printf "\n10.10.10.11\t%s.germerica.us\t%s\n" "$SERVICE" "$SERVICE" >> $HOSTS
-/usr/local/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml down && /usr/local/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml up -d
+/usr/local/usr/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml down && /usr/local/bin/docker-compose -f /mnt/docker/compose/pihole/docker-compose.yml up -d

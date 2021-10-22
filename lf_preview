@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 # Preview script built for use with lf and fzf
 

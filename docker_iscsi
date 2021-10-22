@@ -9,13 +9,13 @@ done
 
 down () {
     for i in "${services}"; do
-        /usr/local/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml down
+        /usr/local/usr/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml down
     done
 }
 
 up () {
     for i in "${services}"; do
-        /usr/local/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml up -d
+        /usr/local/usr/bin/docker-compose -f /mnt/docker/compose/$i/docker-compose.yml up -d
     done
 }
 

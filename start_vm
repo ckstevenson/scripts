@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 [ $# -eq 0 ] && echo "Please supply a virtual machine name" && exit 1
 

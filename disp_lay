@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 # Used to set display layout for my personal config. 
 # Previously included more hosts, but since I have moved to one device.
@@ -15,7 +15,7 @@ laptop() {
 }
 
 setbg() {
-    $HOME/.local/bin/setbg
+    "$HOME"/.local/usr/bin/setbg
 }
 
 case $(hostname) in
