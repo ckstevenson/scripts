@@ -3,4 +3,11 @@
 # Wrapper for startx to run iGPU or dGPU depending on docking station connectivity.
 # There is probably a better way to do this.
 
-stat /sys/class/usbmisc/ > /dev/null 2>&1 && export LAYOUT=dgpu && nvidia-xrun || export LAYOUT=igpu && startx
+if [ "$HOSTNAME" == "p51" ]
+then
+    [ stat "/sys/class/usbmisc"/ ];
+    export LAYOUT=dGPU
+    /usr/local/bin/nvidia-xrun
+else
+    /bin/startx
+fi
