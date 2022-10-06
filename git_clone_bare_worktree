@@ -32,3 +32,9 @@ git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 
 # Gets all branches from origin
 git fetch origin
+
+# add master branch
+git worktree add master
+
+cd master
+git branch --set-upstream-to=origin/master master
