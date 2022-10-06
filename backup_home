@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-date=$(date '+%m-%d-%Y_%H:%M')
-
-sudo btrfs subvolume snapshot -r /home/ "/snapshots/home_$date"
-sudo btrfs send "/snapshots/home_$date/" | sudo btrfs receive /mnt/external/x1/

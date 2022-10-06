@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# HOSTNAME is exported via ~/.profile
+# it's used in other scripts so no need to repopulate it here
+
+echo "Backing up ${HOME}"
+restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:"$HOSTNAME" backup "$HOME" --exclude-file "$HOME/.config/restic/excludes"
+restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:"$HOSTNAME" forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
+
+# server
+echo "Backing up ${HOME}/Pictures"
+restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:pictures backup "$HOME/Pictures"
+restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:st forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
+
+for vm in 100 101 102 103 104 105 107
+do
+    echo "Backing up $vm"
+    find "$HOME/Backups/dump" -regex ".*$vm.*" -print0 > "/tmp/backup_$vm"
+    restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:st-"$vm" backup --files-from-raw /tmp/backup_$vm
+    restic --password-command "pass Hosting/bups/$HOSTNAME" -r rclone:gdrive:st-"$vm" forget --keep-daily 1 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
+done
