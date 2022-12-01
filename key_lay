@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Swap between US & DE layout while sourcing my .Xmodmap file
+# Swap between US & DE layout while swapping caps and escape keys
 
-[ "$(setxkbmap -query | grep layout | awk '{print $2}')" = "us" ] && setxkbmap de && xmodmap "$HOME"/.Xmodmap >/dev/null 2>&1 && exit 0
-setxkbmap us && xmodmap "$HOME"/.Xmodmap >/dev/null 2>&1
+[ "$(setxkbmap -query | grep layout | awk '{print $2}')" = "us" ] && setxkbmap de -option caps:escape >/dev/null 2>&1 && exit 0
+setxkbmap us -option caps:escape >/dev/null 2>&1
