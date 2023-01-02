@@ -10,20 +10,12 @@ set -e
 
 url=$1
 basename=${url##*/}
-name=${2:-${basename%.*}}
+name=${basename%.*}
+branch=$2
 
-mkdir $name
+mkdir "$name"
 cd "$name"
 
-# Moves all the administrative git files (a.k.a $GIT_DIR) under .bare directory.
-#
-# Plan is to create worktrees as siblings of this directory.
-# Example targeted structure:
-# .bare
-# main
-# new-awesome-feature
-# hotfix-bug-12
-# ...
 git clone --bare "$url" .bare
 echo "gitdir: ./.bare" > .git
 
@@ -34,7 +26,7 @@ git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch origin
 
 # add master branch
-git worktree add master
+git worktree add "$branch"
 
 cd master
-git branch --set-upstream-to=origin/master master
+git branch --set-upstream-to=origin/"$branch" "$branch"
