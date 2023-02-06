@@ -1,21 +1,26 @@
 #!/usr/bin/env sh
+set -e
 
 # HOSTNAME is exported via ~/.profile
 # it's used in other scripts so no need to repopulate it here
 
+. "$HOME/.config/openstack/gec-restic"
+
 echo "Backing up ${HOME}"
-restic --password-command "pass Hosting/bups/$HOSTNAME" -r "$HOME/Backups/$HOSTNAME" backup "$HOME" --exclude-file "$HOME/.config/restic/excludes"
-restic --password-command "pass Hosting/bups/$HOSTNAME" -r "$HOME/Backups/$HOSTNAME" forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
+restic --password-command "bw_wrapper get password $BACKUP_REPOSITORY_PW_ID" -r "$BACKUP_REPOSITORY_ID:/$HOSTNAME" backup "$HOME" --exclude-file "$HOME/.config/restic/excludes"
+restic --password-command "bw_wrapper get password $BACKUP_REPOSITORY_PW_ID" -r "$BACKUP_REPOSITORY_ID:/$HOSTNAME" forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
 
 # server
-echo "Backing up ${HOME}/Pictures"
-restic --password-command "pass Hosting/bups/$HOSTNAME" -r /mnt/backups/pictures backup "$HOME/Pictures"
-restic --password-command "pass Hosting/bups/$HOSTNAME" -r /mnt/backups/st forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
+#echo "Backing up ${HOME}/Pictures"
+restic --password-command "bw_wrapper get password $BACKUP_REPOSITORY_PW_ID" -r "$BACKUP_REPOSITORY_ID:/pictures" backup "$HOME/Pictures"
+restic --password-command "bw_wrapper get password $BACKUP_REPOSITORY_PW_ID" -r "$BACKUP_REPOSITORY_ID:/pictures" forget --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
 
-#for vm in 100 102 103 105 107 #101 104
-#do
-#    echo "Backing up $vm"
-#    find "$HOME/Backups/dump" -regex ".*$vm.*" -print0 > "/tmp/backup_$vm"
-#    restic --password-command "pass Hosting/bups/$HOSTNAME" -r /mnt/backups/st-"$vm" backup --files-from-raw /tmp/backup_$vm
-#    restic --password-command "pass Hosting/bups/$HOSTNAME" -r /mnt/backups/st-"$vm" forget --keep-daily 1 --keep-weekly 4 --keep-monthly 3 --keep-yearly 1 --prune
-#done
+stat "$HOME/Backups/dump/"
+
+for vm in 100 102 103 107 #105 101 104
+do
+    echo "Backing up $vm"
+    find "$HOME/Backups/dump" -regex ".*$vm.*" -print0 > "/tmp/backup_$vm"
+    restic --password-command "bw_wrapper get password $BACKUP_REPOSITORY_PW_ID" -r "$BACKUP_REPOSITORY_ID:/server" backup "$HOME/Backups/dump/"
+    restic --password-command "pass Hosting/bups/$HOSTNAME" -r /mnt/backups/st-"$vm" forget --keep-daily 1 --keep-weekly 1 --keep-monthly 1 --keep-yearly 1 --prune
+done
