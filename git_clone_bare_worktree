@@ -28,5 +28,5 @@ git fetch origin
 # add master branch
 git worktree add "$branch"
 
-cd master
+cd "$branch"
 git branch --set-upstream-to=origin/"$branch" "$branch"
