@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# Combine bitwarden and dmenu to get passwords
+
+while getopts d: flag
+do
+    case "${flag}" in
+        d) dmenu=true;;
+        *) exit 1;;
+    esac
+done
+
+# source bw session
+. /home/cameron/.config/shell/bw
+
+if [ "$dmenu" ]; then
+    # remove first item of array, i.e. -d
+    set -- "${@:2}"
+
+    item="$(bw list items  | jq -r '.[] | .name' | dmenu -i -g 10 -l 10)"
+    bw "$@" "$item" | xclip -selection clipboard
+else
+    bw "$@"
+fi
