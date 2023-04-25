@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/usr/bin/nextcloudcmd --exclude /home/cameron/.config/Nextcloud/sync-exclude.lst /home/cameron/Documents/ https://cameron:$(/home/cameron/.local/bin/bw_wrapper get password nc.germerica.us)@nc.germerica.us
